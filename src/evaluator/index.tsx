@@ -1,4 +1,3 @@
-import { TypedArray } from '@tensorflow/tfjs';
 import React, { FunctionComponent, useState } from 'react';
 import { getModel } from '../model';
 
