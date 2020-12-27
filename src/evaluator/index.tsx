@@ -22,11 +22,9 @@ const Evaluator: FunctionComponent<EvaluatorProps> = ({ jobBulletPoints, resumeB
   return (
     <>
       <input type="submit" onClick={handleSubmit}></input>
-      <React.Fragment>
-        {
-          jobBulletPointResponseScores.map((score, index) => <p>{printScore(score, index)}</p>)
-        }
-      </React.Fragment>
+      {
+        jobBulletPointResponseScores.map((score, index) => <p>{printScore(score, index)}</p>)
+      }
     </>
   )
 };
