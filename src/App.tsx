@@ -1,26 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Evaluator from './evaluator';
+import { useTextAreaWithoutAsciiCharacters } from './hooks';
+import { TwoColumnGridDiv, TextArea } from './styles';
 
-function App() {
+const App = () => {
+  const { value: job, bind: bindJob } = useTextAreaWithoutAsciiCharacters('');
+  const { value: resume, bind: bindResume } = useTextAreaWithoutAsciiCharacters('');
+
+  const jobBulletPoints = job.split('\n');
+  const resumeBulletPoints = resume.split('\n');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <TwoColumnGridDiv>
+        <div>
+          <TextArea {...bindJob} />
+          <div>
+            {jobBulletPoints.map((bulletPoint, bulletPointIndex) => <p key={bulletPointIndex}>{bulletPoint}</p>)}
+          </div>
+        </div>
+        <div>
+          <TextArea {...bindResume} />
+          <div>
+            {resumeBulletPoints.map((bulletPoint, bulletPointIndex) => <p key={bulletPointIndex}>{bulletPoint}</p>)}
+          </div>
+        </div>
+      </TwoColumnGridDiv>
+      {
+        job && resume && 
+        <Evaluator
+          jobBulletPoints={jobBulletPoints}
+          resumeBulletPoints={resumeBulletPoints}
+        />
+      }
+    </>
   );
-}
+};
 
 export default App;
