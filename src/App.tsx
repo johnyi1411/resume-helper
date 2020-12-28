@@ -22,7 +22,7 @@ const App = () => {
         <div>
           <TextArea {...bindResume} />
           <div>
-            {resumeBulletPoints.map((bulletPoint, bulletPointIndex) => <p key={bulletPointIndex}>{bulletPoint}</p>)}
+            {resumeBulletPoints.map((bulletPoint, bulletPointIndex) => <p key={bulletPointIndex}>{`${bulletPointIndex}: ${bulletPoint}`}</p>)}
           </div>
         </div>
       </TwoColumnGridDiv>

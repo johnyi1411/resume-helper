@@ -24,7 +24,7 @@ const Evaluator: FunctionComponent<EvaluatorProps> = ({ jobBulletPoints, resumeB
   }
 
   const printScore = (score: number, index: number) => {
-    return `job point ${index + 1}, resume coverage score: ${score}`;
+    return `job point ${index}, resume coverage score: ${score}`;
   }
 
   return (
