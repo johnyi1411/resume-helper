@@ -16,7 +16,7 @@ const App = () => {
         <div>
           <TextArea {...bindJob} />
           <div>
-            {jobBulletPoints.map((bulletPoint, bulletPointIndex) => <p key={bulletPointIndex}>{bulletPoint}</p>)}
+            {jobBulletPoints.map((bulletPoint, bulletPointIndex) => <p key={bulletPointIndex}>{`${bulletPointIndex}: ${bulletPoint}`}</p>)}
           </div>
         </div>
         <div>
