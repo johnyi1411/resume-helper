@@ -1,12 +1,7 @@
 import * as tf from '@tensorflow/tfjs';
 import * as use from '@tensorflow-models/universal-sentence-encoder';
-import { ModelOutput } from '@tensorflow-models/universal-sentence-encoder/dist/use_qna';
-
-type BestMatchingQueryResponsePair = {
-  queryIndex: number,
-  responseIndex: number,
-  score: number
-}
+import { Tensor } from '@tensorflow/tfjs';
+import { BestMatchingQueryResponsePair } from '../types';
 
 const NUM_AXIS = 1;
 
@@ -21,12 +16,16 @@ export const getScores = async (
 
   const model = await use.loadQnA();
   const modelOutput = model.embed(input);
-  console.log('best match: ', await getBestMatchingPointPairs(modelOutput));
-  return await jobBulletPointResponseScores(modelOutput);
+  const queryResponseDotProductTensor = modelOutput['queryEmbedding'].matMul(modelOutput['responseEmbedding'], false, true); 
+
+  return {
+    ...(await jobBulletPointResponseScores(queryResponseDotProductTensor)),
+    bestMatchingPairs: await getBestMatchingPointPairs(queryResponseDotProductTensor)
+  };
 };
 
-export const jobBulletPointResponseScores = async (modelOutput: ModelOutput) => {
-  const queryResponseScoresSum = modelOutput['queryEmbedding'].matMul(modelOutput['responseEmbedding'], false, true).sum(NUM_AXIS);
+export const jobBulletPointResponseScores = async (queryResponseDotProductTensor: Tensor) => {
+  const queryResponseScoresSum = queryResponseDotProductTensor.sum(NUM_AXIS);
 
   const { mean: queryResponseScoresSumMean, variance: queryResponseScoresSumVariance } = tf.moments(queryResponseScoresSum);
 
@@ -40,20 +39,12 @@ export const jobBulletPointResponseScores = async (modelOutput: ModelOutput) => 
   }
 }
 
-export const getBestMatchingPointPairs = async (modelOutput: ModelOutput) => {
-  const queryResponseScores = modelOutput['queryEmbedding'].matMul(modelOutput['responseEmbedding'], false, true);
-  const queryResponseMaxScores = await queryResponseScores.max(NUM_AXIS).data();
-  const queryResponseMaxScoreIndices = await queryResponseScores.argMax(NUM_AXIS).data();
+export const getBestMatchingPointPairs = async (queryResponseDotProductTensor: Tensor) => {
+  const queryResponseMaxScores = await queryResponseDotProductTensor.max(NUM_AXIS).data();
+  const queryResponseMaxScoreIndices = await queryResponseDotProductTensor.argMax(NUM_AXIS).data();
 
-  const { mean: queryResponseScoresMean, variance: queryResponseScoresVariance } = tf.moments(queryResponseScores);
+  const { mean: queryResponseScoresMean, variance: queryResponseScoresVariance } = tf.moments(queryResponseDotProductTensor);
   const meanPlusOneStdVariation = Number(await queryResponseScoresMean.add(queryResponseScoresVariance.sqrt()).data());
-
-  console.log('scores: ', queryResponseScores.print());
-  console.log('mean: ', queryResponseScoresMean.print());
-  console.log('variance: ', queryResponseScoresVariance.print());
-
-  console.log('max scores: ', queryResponseMaxScores);
-  console.log('max score indices: ', queryResponseMaxScoreIndices);
 
   const bestMatchingPairsAboveOneStdDeviation: BestMatchingQueryResponsePair[] = [];
 

@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import { getScores } from '../model';
+import { BestMatchingQueryResponsePair } from '../types';
 
 type EvaluatorProps = {
   jobBulletPoints: string[];
@@ -7,20 +8,25 @@ type EvaluatorProps = {
 }
 
 const Evaluator: FunctionComponent<EvaluatorProps> = ({ jobBulletPoints, resumeBulletPoints }) => {
-  const initialValue: number[] = [];
-  const [jobBulletPointResponseScores, setJobBulletPointResponseScores] = useState(initialValue);
+  const jobBulletPointResponseScoresInitialValue: number[] = [];
+  const [jobBulletPointResponseScores, setJobBulletPointResponseScores] = useState(jobBulletPointResponseScoresInitialValue);
   const [upperScoreLimit, setUpperScoreLimit] = useState(0);
   const [lowerScoreLimit, setLowerScoreLimit] = useState(0);
+
+  const bestMatchingPairsInitialValue: BestMatchingQueryResponsePair[] = [];
+  const [bestMatchingPairs, setBestMatchingPairs] = useState(bestMatchingPairsInitialValue);
 
   const handleSubmit = async () => {
     const {
       queryResponseScores: typedBullePointScores,
       meanPlusOneStdVariation,
-      meanMinusOneStdVariation
+      meanMinusOneStdVariation,
+      bestMatchingPairs
     } = await getScores(jobBulletPoints, resumeBulletPoints);
     setJobBulletPointResponseScores(Array.from(typedBullePointScores));
     setUpperScoreLimit(meanPlusOneStdVariation);
     setLowerScoreLimit(meanMinusOneStdVariation);
+    setBestMatchingPairs(bestMatchingPairs);
   }
 
   const printScore = (score: number, index: number) => {
@@ -50,6 +56,9 @@ const Evaluator: FunctionComponent<EvaluatorProps> = ({ jobBulletPoints, resumeB
             return <></>
           }
         })
+      }
+      {
+        bestMatchingPairs.map(({ queryIndex, responseIndex, score }) => <p>{`query ${queryIndex} and response ${responseIndex} are a great match with a score of ${score}`}</p>)
       }
     </>
   )
