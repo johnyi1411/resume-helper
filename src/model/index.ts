@@ -48,8 +48,6 @@ export const getBestMatchingPointPairs = async (queryResponseDotProductTensor: T
 
   const bestMatchingPairsAboveOneStdDeviation: BestMatchingQueryResponsePair[] = [];
 
-  console.log('plus one: ', meanPlusOneStdVariation);
-
   queryResponseMaxScores.forEach((maxScore: number, queryIndex: number) => {
     if (maxScore > meanPlusOneStdVariation) {
       bestMatchingPairsAboveOneStdDeviation.push({
