@@ -17,6 +17,8 @@ const Evaluator: FunctionComponent<EvaluatorProps> = ({ jobBulletPoints, resumeB
   const [bestMatchingPairs, setBestMatchingPairs] = useState(bestMatchingPairsInitialValue);
 
   const handleSubmit = async () => {
+    const start = performance.now();
+
     const {
       queryResponseScores: typedBullePointScores,
       meanPlusOneStdVariation,
@@ -27,6 +29,9 @@ const Evaluator: FunctionComponent<EvaluatorProps> = ({ jobBulletPoints, resumeB
     setUpperScoreLimit(meanPlusOneStdVariation);
     setLowerScoreLimit(meanMinusOneStdVariation);
     setBestMatchingPairs(bestMatchingPairs);
+
+    // TODO: remove
+    console.log(`took ${(performance.now() - start) / 1000} seconds`)
   }
 
   const printScore = (score: number, index: number) => {

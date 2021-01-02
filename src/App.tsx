@@ -1,4 +1,6 @@
 import React from 'react';
+import './index.css';
+
 import Evaluator from './evaluator';
 import { useTextAreaWithoutAsciiCharacters } from './hooks';
 import { TwoColumnGridDiv, TextArea } from './styles';
