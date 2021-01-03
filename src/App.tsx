@@ -43,7 +43,6 @@ const App = () => {
           </Route>
       </Router>
       <Background />
-      <div className="slide-enter"></div>
     </>
   );
 };
