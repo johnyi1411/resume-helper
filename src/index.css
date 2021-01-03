@@ -2,17 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+.body {
+  overflow-x: hidden;
+}
+
 .slide-enter {
   transform: translateX(100%);
+  overflow: hidden;
 }
 .slide-enter-active {
   transform: translateX(0%);
   transition: transform 1000ms ease-in-out;
+  overflow: hidden;
 }
 .slide-exit {
   transform: translateX(0%);
+  overflow: hidden;
 }
 .slide-exit-active {
   transform: translateX(-100%);
   transition: transform 1000ms ease-in-out;
+  overflow: hidden;
 }

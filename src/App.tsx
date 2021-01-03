@@ -20,7 +20,7 @@ const App = () => {
                 classNames="slide"
                 unmountOnExit
               >
-                <div className="absolute">
+                <div className="w-full h-full absolute">
                   <Job />
                 </div>
               </CSSTransition>
@@ -35,7 +35,7 @@ const App = () => {
                 classNames="slide"
                 unmountOnExit
               >
-                <div className="absolute">
+                <div className="w-full h-full absolute">
                   <Landing />
                 </div>
               </CSSTransition>
