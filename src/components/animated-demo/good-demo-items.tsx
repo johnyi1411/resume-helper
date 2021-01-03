@@ -16,7 +16,7 @@ const GoodDemoItems: React.FunctionComponent<GoodDemoItemsProps> = ({ onGoodDemo
 
   useEffect(() => {
     setGoodMatchDemoItem1(true);
-  }, [goodMatchDemoItem1]);
+  }, []);
 
   return (
     <>

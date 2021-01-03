@@ -12,7 +12,7 @@ const BadDemoItems: React.FunctionComponent = () => {
 
   useEffect(() => {
     setbadMatchDemoItem1(true);
-  }, [badMatchDemoItem1]);
+  }, []);
 
   return (
     <>
