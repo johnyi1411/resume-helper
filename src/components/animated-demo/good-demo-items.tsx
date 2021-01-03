@@ -59,7 +59,7 @@ const GoodDemoItems: React.FunctionComponent<GoodDemoItemsProps> = ({ onGoodDemo
       >
         {state => (
           <div className={`transition-opacity duration-500 ${transitionStyles[state]}`}>
-            <div className="flex justify-center bg-white rounded-xl py-6 mt-8 text-darkgreen">
+            <div className="flex justify-center bg-white rounded-xl py-6 mt-8 text-darkgreen border border-darkgreen shadow">
               <div className="flex content-center justify-between w-1/2">
                 <span className="self-center text-3xl">Great Match</span>
 
