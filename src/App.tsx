@@ -2,9 +2,9 @@ import React from 'react';
 import './index.css';
 import {
   BrowserRouter as Router,
-  Switch,
   Route,
 } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
 
 import { Background, Landing, Job } from './pages';
 
@@ -12,16 +12,34 @@ const App = () => {
   return (
     <>
       <Router>
-        <Switch>
-          <Route path="/job">
-            <Job />
+          <Route exact path="/job">
+            {({ match }) => (
+              <CSSTransition
+                in={match !== null}
+                timeout={1000}
+                classNames="slide"
+                unmountOnExit
+              >
+                <Job />
+              </CSSTransition>
+            )}
           </Route>
-          <Route path="/">
-            <Landing />
+
+          <Route exact path="/">
+            {({ match }) => (
+              <CSSTransition
+                in={match !== null}
+                timeout={1000}
+                classNames="slide"
+                unmountOnExit
+              >
+                <Landing />
+              </CSSTransition>
+            )}
           </Route>
-        </Switch>
       </Router>
       <Background />
+      <div className="slide-enter"></div>
     </>
   );
 };
