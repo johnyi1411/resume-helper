@@ -4,6 +4,7 @@ import './index.css';
 import Evaluator from './evaluator';
 import { useTextAreaWithoutAsciiCharacters } from './hooks';
 import { TwoColumnGridDiv, TextArea } from './styles';
+import { Landing } from './pages';
 
 const App = () => {
   const { value: job, bind: bindJob } = useTextAreaWithoutAsciiCharacters('');
@@ -14,7 +15,7 @@ const App = () => {
 
   return (
     <>
-      <TwoColumnGridDiv>
+      {/* <TwoColumnGridDiv>
         <div>
           <TextArea {...bindJob} />
           <div>
@@ -34,7 +35,8 @@ const App = () => {
           jobBulletPoints={jobBulletPoints}
           resumeBulletPoints={resumeBulletPoints}
         />
-      }
+      } */}
+      <Landing />
     </>
   );
 };
