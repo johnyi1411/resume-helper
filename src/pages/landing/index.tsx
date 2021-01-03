@@ -1,6 +1,6 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
-import { Background } from '../page-template';
 import { About, AnimatedDemo, Button, Header } from '../../components';
 
 const Landing = () => {
@@ -18,15 +18,15 @@ const Landing = () => {
               See how well your resume fits the job
             </p>
             <div className="mt-14">
-              <Button onClick={() => console.log('yo')} buttonText="Get Started" />
+              <Link to="/job">
+                <Button buttonText="Get Started" />
+              </Link>
             </div>
           </div>
 
           <AnimatedDemo />
         </div>
       </div>
-
-      <Background />
     </>
   );
 }

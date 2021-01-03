@@ -19,18 +19,6 @@ module.exports = {
       zIndex: {
         '-1': '-1',
       },
-      height: {
-        '440px': '440px',
-      },
-      animation: {
-        'infinite': 'move-bg 10s linear infinite',
-      },
-      keyframes: {
-        'move-bg': {
-          '0%':   { 'opacity': '0' },
-          '100%': { 'opacity': '1' },
-        }
-      }
     },
   },
   variants: {
