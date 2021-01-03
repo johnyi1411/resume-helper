@@ -6,14 +6,12 @@ export type ButtonProps = {
 }
 
 const Button: FunctionComponent<ButtonProps> = ({ buttonText, onClick }) => {
-  return (
-    <input
-      className="text-3xl text-white bg-darkblue py-3 px-6 rounded-xl shadow overflow-visible mb-5"
-      onClick={onClick}
-      type="submit"
-      value={buttonText}
-    />
-  )
+  return <input
+    className="text-3xl text-white bg-darkblue py-3 px-6 rounded-xl shadow overflow-visible mb-5"
+    onClick={onClick}
+    type="submit"
+    value={buttonText}
+  />
 };
 
 export { Button };

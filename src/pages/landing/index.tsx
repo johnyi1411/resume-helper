@@ -1,9 +1,7 @@
 import React from 'react';
-import { IconContext } from "react-icons";
-import { FaThumbsUp } from 'react-icons/fa';
 
 import { Background } from '../page-template';
-import { About, Button, Header } from '../../components';
+import { About, AnimatedDemo, Button, Header } from '../../components';
 
 const Landing = () => {
   return (
@@ -24,24 +22,7 @@ const Landing = () => {
             </div>
           </div>
 
-          <div className="w-full bg-lightblue py-10 px-12 rounded-xl shadow">
-            <p className="font-bold">Job Description</p>
-            <div className="bg-white rounded-xl py-2 px-4 mt-4">
-              Experience developing reusable libraries and components useful across all teams
-            </div>
-            <p className="font-bold mt-4">Resume</p>
-            <div className="bg-white rounded-xl py-2 px-4 mt-4">
-              Developed a component libray using React used on front end projects on multiple teams
-            </div>
-            <div className="flex justify-center bg-white rounded-xl py-6 mt-8 text-darkgreen">
-              <div className="flex content-center justify-between w-1/2">
-                <span className="self-center text-3xl">Great Match</span>
-                <IconContext.Provider value={{ className: "text-4xl" }}>
-                  <FaThumbsUp />
-                </IconContext.Provider>
-              </div>
-            </div>
-          </div>
+          <AnimatedDemo />
         </div>
       </div>
 

@@ -8,6 +8,7 @@ module.exports = {
         lightgreen: '#D9FFC1',
         darkblue: '#1653AE',
         lightblue: '#C9DEFF',
+        darkred: '#FF4848',
       },
       maxWidth: {
         '2xs': '16rem',
@@ -20,6 +21,15 @@ module.exports = {
       },
       height: {
         '440px': '440px',
+      },
+      animation: {
+        'infinite': 'move-bg 10s linear infinite',
+      },
+      keyframes: {
+        'move-bg': {
+          '0%':   { 'opacity': '0' },
+          '100%': { 'opacity': '1' },
+        }
       }
     },
   },
