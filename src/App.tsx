@@ -20,7 +20,9 @@ const App = () => {
                 classNames="slide"
                 unmountOnExit
               >
-                <Job />
+                <div className="absolute">
+                  <Job />
+                </div>
               </CSSTransition>
             )}
           </Route>
@@ -33,7 +35,9 @@ const App = () => {
                 classNames="slide"
                 unmountOnExit
               >
-                <Landing />
+                <div className="absolute">
+                  <Landing />
+                </div>
               </CSSTransition>
             )}
           </Route>
