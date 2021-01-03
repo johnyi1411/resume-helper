@@ -7,7 +7,7 @@ import { duration, transitionStyles } from './enums';
 
 const AnimatedDemo = () => {
   const [goodMatchDemoItems, setGoodMatchDemoItems] = useState(false);
-  const [badMatchDemoItems, setbadMatchDemoItems] = useState(false);
+  const [badMatchDemoItems, setBadMatchDemoItems] = useState(false);
 
   const [showGoodMatchDemo, setGoodMatchDemo] = useState(true);
 
@@ -17,7 +17,12 @@ const AnimatedDemo = () => {
 
   const onGoodDemoFinish = () => {
     setGoodMatchDemoItems(false);
-    setbadMatchDemoItems(true);
+    setBadMatchDemoItems(true);
+  };
+
+  const onBadDemoFinish = () => {
+    setBadMatchDemoItems(false);
+    setGoodMatchDemoItems(true);
   };
   
   return (
@@ -37,10 +42,11 @@ const AnimatedDemo = () => {
       {!showGoodMatchDemo && <Transition 
         in={badMatchDemoItems}
         timeout={duration}
+        onExited={() => setGoodMatchDemo(true)}
       >
         {state => (
           <div className={`transition-opacity duration-500 ${transitionStyles[state]}`}>
-            <BadDemoItems />
+            <BadDemoItems onBadDemoFinish={onBadDemoFinish}/>
           </div>
         )}
       </Transition>}

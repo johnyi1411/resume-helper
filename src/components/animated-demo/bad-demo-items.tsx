@@ -5,7 +5,11 @@ import { Transition } from 'react-transition-group';
 
 import { duration, transitionStyles } from './enums';
 
-const BadDemoItems: React.FunctionComponent = () => {
+type BadDemoItemsProps = {
+  onBadDemoFinish: () => void,
+}
+
+const BadDemoItems: React.FunctionComponent<BadDemoItemsProps> = ({ onBadDemoFinish }) => {
   const [badMatchDemoItem1, setbadMatchDemoItem1] = useState(false);
   const [badMatchDemoItem2, setbadMatchDemoItem2] = useState(false);
   const [badMatchDemoItem3, setbadMatchDemoItem3] = useState(false);
@@ -51,6 +55,7 @@ const BadDemoItems: React.FunctionComponent = () => {
       <Transition 
         in={badMatchDemoItem3}
         timeout={duration}
+        onEntered={() => onBadDemoFinish()}
       >
         {state => (
           <div className={`transition-opacity duration-500 ${transitionStyles[state]}`}>
