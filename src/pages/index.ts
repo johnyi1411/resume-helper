@@ -3,4 +3,4 @@ export * from './job';
 export * from './background';
 export * from './resume';
 export * from './loading';
-export * from './results';
+export * from './result';
