@@ -5,23 +5,15 @@ import {
   Link,
   Route,
   RouteChildrenProps,
-  useLocation,
 } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 
 import { Background, Landing, Job, Resume } from './pages';
 import { About, Header } from './components';
 
-// type AppProps = RouteComponentProps<{}, {}, StateType>;
-
-type StateType = {
+type LocationType = {
   prevPath: string,
 }
-
-// interface stateType {
-//   prevPath: string 
-// }
-
 
 const App = () => {
   const initialPoints: string[] = [];
@@ -55,7 +47,7 @@ const App = () => {
           </Route>
 
           <Route exact path="/job">
-            {({ location, match }: RouteChildrenProps<{}, StateType>) => {
+            {({ location, match }: RouteChildrenProps<{}, LocationType>) => {
               const { state } = location;
               const prevPath = state && state.prevPath;
               const animationClass = prevPath === '/resume' ? 'slideback' : 'slide';
@@ -75,7 +67,7 @@ const App = () => {
           </Route>
 
           <Route exact path="/resume">
-          {({ location, match }: RouteChildrenProps<{}, StateType>) => {
+          {({ location, match }: RouteChildrenProps<{}, LocationType>) => {
               const { state } = location;
               const prevPath = state && state.prevPath;
               const animationClass = prevPath === '/resume' ? 'slideback' : 'slide';
