@@ -4,6 +4,7 @@ import { IconContext } from "react-icons";
 import { BsDot } from 'react-icons/bs';
 import { FcPrevious } from 'react-icons/fc';
 
+import { Button } from '../../components';
 import { useTextAreaWithoutAsciiCharacters } from '../../hooks';
 
 type ResumeProps = {
@@ -22,7 +23,7 @@ const Resume: React.FunctionComponent<ResumeProps> = ({ setResumePoints }) => {
           <div className="w-10/12 py-4 pl-4 justify-self-center bg-white rounded-xl shadow border-4 border-lightblue">
             <textarea
               className="w-full h-full max-h-screen60 focus:outline-none resize-none"
-              placeholder="Copy a Resume description here..."
+              placeholder="Copy your resume here..."
               {...bindResume}
             />
           </div>
@@ -41,6 +42,10 @@ const Resume: React.FunctionComponent<ResumeProps> = ({ setResumePoints }) => {
           </div>
         </div>
       </div>
+
+      <Link to={{pathname: '/results', state: { nextPath: '/results' }}}>
+        <Button buttonText="Analyze" />
+      </Link>
 
       <Link to={{pathname: '/job', state: { prevPath: '/resume' }}}>
         <div className="fixed bottom-1/16 left-1/16 bg-white rounded-full justify-center text-center text-3xl text-darkgreen shadow">

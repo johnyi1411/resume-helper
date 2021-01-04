@@ -8,11 +8,12 @@ import {
 } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 
-import { Background, Landing, Job, Resume } from './pages';
+import { Background, Landing, Job, Results, Resume } from './pages';
 import { About, Header } from './components';
 
 type LocationType = {
-  prevPath: string,
+  prevPath?: string,
+  nextPath?: string,
 }
 
 const App = () => {
@@ -67,23 +68,48 @@ const App = () => {
           </Route>
 
           <Route exact path="/resume">
-          {({ location, match }: RouteChildrenProps<{}, LocationType>) => {
-              const { state } = location;
-              const prevPath = state && state.prevPath;
-              const animationClass = prevPath === '/resume' ? 'slideback' : 'slide';
-              return (
-                <CSSTransition
-                  in={match !== null}
-                  timeout={1000}
-                  classNames={animationClass}
-                  unmountOnExit
-                >
+            {({ location, match }: RouteChildrenProps<{}, LocationType>) => {
+                const { state } = location;
+                const prevPath = state && state.prevPath;
+                const nextPath = state && state.nextPath;
+                let animationClass = 'slide';
+
+                if (prevPath === '/resume') {
+                  animationClass = 'slideback';
+                }
+
+                if (nextPath === '/results') {
+                  animationClass = '';
+                }
+
+                return (
+                  <CSSTransition
+                    in={match !== null}
+                    timeout={1000}
+                    classNames={animationClass}
+                    unmountOnExit
+                  >
+                  <div className="w-full h-full fixed">
+                    <Resume setResumePoints={setResumePoints}/>
+                  </div>
+                </CSSTransition>
+                )
+            }}
+          </Route>
+
+          <Route exact path="/results">
+            {({ match }: RouteChildrenProps) => (
+              <CSSTransition
+                in={match !== null}
+                timeout={1000}
+                classNames="slideup"
+                unmountOnExit
+              >
                 <div className="w-full h-full fixed">
-                  <Resume setResumePoints={setResumePoints}/>
+                  <Results />
                 </div>
               </CSSTransition>
-              )
-          }}
+            )}
           </Route>
       </Router>
       <Background />

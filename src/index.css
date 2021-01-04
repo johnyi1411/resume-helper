@@ -48,6 +48,30 @@
   overflow: hidden;
 }
 
+/* slide up animation */
+.slideup-enter {
+  transform: translateY(100%);
+  overflow: hidden;
+}
+
+.slideup-enter-active {
+  transform: translateY(0%);
+  transition: transform 1000ms ease-in-out;
+  overflow: hidden;
+}
+
+.slideup-exit {
+  transform: translateY(0%);
+  overflow: hidden;
+}
+
+.slideup-exit-active {
+  transform: translateY(-100%);
+  transition: transform 1000ms ease-in-out;
+  overflow: hidden;
+}
+
+
 /* custom scrollbar */
 ::-webkit-scrollbar {
   width: 20px;
