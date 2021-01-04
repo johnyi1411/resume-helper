@@ -6,10 +6,11 @@ import {
   Route,
   RouteChildrenProps,
 } from 'react-router-dom';
-import { CSSTransition } from 'react-transition-group';
+import { CSSTransition, Transition } from 'react-transition-group';
 
 import { Background, Landing, Job, Results, Resume } from './pages';
 import { About, Header } from './components';
+import { duration, transitionStyles } from './enums';
 
 type LocationType = {
   prevPath?: string,
@@ -99,16 +100,20 @@ const App = () => {
 
           <Route exact path="/results">
             {({ match }: RouteChildrenProps) => (
-              <CSSTransition
+              <Transition 
                 in={match !== null}
-                timeout={1000}
-                classNames="slideup"
+                timeout={duration}
                 unmountOnExit
               >
-                <div className="w-full h-full fixed">
-                  <Results />
-                </div>
-              </CSSTransition>
+                {state => (
+                  <div className={`transition-opacity duration-500 w-full h-full fixed ${transitionStyles[state]}`}>
+                    <Results 
+                      jobBulletPoints={jobPoints}
+                      resumeBulletPoints={resumePoints}
+                    />
+                  </div>
+                )}
+              </Transition>
             )}
           </Route>
       </Router>

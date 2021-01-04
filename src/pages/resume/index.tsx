@@ -14,12 +14,12 @@ type ResumeProps = {
 const Resume: React.FunctionComponent<ResumeProps> = ({ setResumePoints }) => {
   const { value: resume, bind: bindResume } = useTextAreaWithoutAsciiCharacters('');
 
-  const resumeBulletPoints = resume ? resume.split('\n') : [];
+  const resumeBulletPoints = resume ? resume.split('\n').filter((bulletPoint: string) => bulletPoint) : [];
   
   return (
     <div>
-      <div className="w-3/4 mx-auto text-sm">
-        <div className="grid grid-cols-2 ml-4 mt-20 max-h-screen60">
+      <div className="flex flex-col items-center w-3/4 mx-auto text-sm">
+        <div className="grid grid-cols-2 w-full ml-4 mt-20 max-h-screen60">
           <div className="w-10/12 py-4 pl-4 justify-self-center bg-white rounded-xl shadow border-4 border-lightblue">
             <textarea
               className="w-full h-full max-h-screen60 focus:outline-none resize-none"
@@ -41,11 +41,18 @@ const Resume: React.FunctionComponent<ResumeProps> = ({ setResumePoints }) => {
             })}
           </div>
         </div>
+
+        {resume && 
+          <Link
+            to={{pathname: '/results', state: { nextPath: '/results' }}}
+            className="justify-self-center mt-4"
+            onClick={() => setResumePoints(resumeBulletPoints)}
+          >
+            <Button buttonText="Analyze" />
+          </Link>
+        }
       </div>
 
-      <Link to={{pathname: '/results', state: { nextPath: '/results' }}}>
-        <Button buttonText="Analyze" />
-      </Link>
 
       <Link to={{pathname: '/job', state: { prevPath: '/resume' }}}>
         <div className="fixed bottom-1/16 left-1/16 bg-white rounded-full justify-center text-center text-3xl text-darkgreen shadow hover:bg-gray-100">

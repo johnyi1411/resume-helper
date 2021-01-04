@@ -3,7 +3,7 @@ import { IconContext } from "react-icons";
 import { FaThumbsDown } from 'react-icons/fa';
 import { Transition } from 'react-transition-group';
 
-import { duration, transitionStyles } from './enums';
+import { duration, transitionStyles } from '../../enums';
 
 type BadDemoItemsProps = {
   onBadDemoFinish: () => void,

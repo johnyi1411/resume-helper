@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 
-const Loading = () => {
-  return <div className="w-1/2 h-1/2 bg-lightgreen">whoa</div>
+type LoadingProps = {
+  className: string,
+};
+
+const Loading: FunctionComponent<LoadingProps> = ({ className }) => {
+  return <div className={`${className} fixed top-0 left-0 w-screen h-screen bg-lightgreen`}>whoa</div>
 };
 
 export { Loading };

@@ -3,7 +3,7 @@ import { Transition } from 'react-transition-group';
 
 import { GoodDemoItems } from './good-demo-items';
 import { BadDemoItems } from './bad-demo-items';
-import { duration, transitionStyles } from './enums';
+import { duration, transitionStyles } from '../../enums';
 
 const AnimatedDemo = () => {
   const [goodMatchDemoItems, setGoodMatchDemoItems] = useState(false);

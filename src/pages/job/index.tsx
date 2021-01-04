@@ -13,7 +13,7 @@ type JobProps = {
 const Job: React.FunctionComponent<JobProps> = ({ setJobPoints }) => {
   const { value: job, bind: bindJob } = useTextAreaWithoutAsciiCharacters('');
 
-  const jobBulletPoints = job ? job.split('\n') : [];
+  const jobBulletPoints = job ? job.split('\n').filter((bulletPoint: string) => bulletPoint) : [];
   
   return (
     <div>
