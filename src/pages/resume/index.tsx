@@ -48,7 +48,7 @@ const Resume: React.FunctionComponent<ResumeProps> = ({ setResumePoints }) => {
       </Link>
 
       <Link to={{pathname: '/job', state: { prevPath: '/resume' }}}>
-        <div className="fixed bottom-1/16 left-1/16 bg-white rounded-full justify-center text-center text-3xl text-darkgreen shadow">
+        <div className="fixed bottom-1/16 left-1/16 bg-white rounded-full justify-center text-center text-3xl text-darkgreen shadow hover:bg-gray-100">
           <IconContext.Provider value={{ className: "m-2" }}>
             <FcPrevious />
           </IconContext.Provider>
