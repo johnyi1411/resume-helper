@@ -65,6 +65,10 @@ const Results: FunctionComponent<ResultsProps> = ({ jobBulletPoints, resumeBulle
           <Loading className={`transition-opacity duration-500 ${transitionStyles[state]}`} />
         )}
       </Transition>}
+      
+      {/* TODO: remove */}
+      {/* <Loading className={``} /> */}
+
       {
         jobBulletPointResponseScores.map((score, index) => {
           if (score > upperScoreLimit) {
