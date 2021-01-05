@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Transition } from 'react-transition-group';
 
-import { Loading } from '../index';
+import { Loading } from '../../components';
 
 import { getScores } from '../../model';
 import { BestMatchingQueryResponsePair } from '../../types';
@@ -65,10 +65,6 @@ const Results: FunctionComponent<ResultsProps> = ({ jobBulletPoints, resumeBulle
           <Loading className={`transition-opacity duration-500 ${transitionStyles[state]}`} />
         )}
       </Transition>}
-      
-      {/* TODO: remove */}
-      {/* <Loading className={``} /> */}
-
       {
         jobBulletPointResponseScores.map((score, index) => {
           if (score > upperScoreLimit) {
