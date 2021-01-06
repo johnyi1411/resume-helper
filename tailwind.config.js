@@ -6,9 +6,11 @@ module.exports = {
       colors: {
         darkgreen: '#2AB22F',
         lightgreen: '#D9FFC1',
+        brightgreen: '#58FF5F',
         darkblue: '#1653AE',
         lightblue: '#C9DEFF',
         darkred: '#FF4848',
+        lightred: '#FF9595',
       },
       maxWidth: {
         '2xs': '16rem',

@@ -106,7 +106,7 @@ const App = () => {
                 unmountOnExit
               >
                 {state => (
-                  <div className={`transition-opacity duration-500 w-full h-full fixed ${transitionStyles[state]}`}>
+                  <div className={`transition-opacity duration-500 w-full h-full ${transitionStyles[state]}`}>
                     <Results 
                       jobBulletPoints={jobPoints}
                       resumeBulletPoints={resumePoints}
