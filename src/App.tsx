@@ -70,58 +70,58 @@ const App = () => {
           </Route>
 
           <Route exact path="/resume">
-            {!jobPoints.length &&
+            {jobPoints.length ?
+              ({ location, match }: RouteChildrenProps<{}, LocationType>) => {
+                  const { state } = location;
+                  const prevPath = state && state.prevPath;
+                  const nextPath = state && state.nextPath;
+                  let animationClass = 'slide';
+
+                  if (prevPath === '/resume') {
+                    animationClass = 'slideback';
+                  }
+
+                  if (nextPath === '/results') {
+                    animationClass = '';
+                  }
+
+                  return (
+                    <CSSTransition
+                      in={match !== null}
+                      timeout={1000}
+                      classNames={animationClass}
+                      unmountOnExit
+                    >
+                    <div className="w-full h-full fixed">
+                      <Resume setResumePoints={setResumePoints}/>
+                    </div>
+                  </CSSTransition>
+                  )
+              } :
               <Redirect to="/"/>
-            }
-            {({ location, match }: RouteChildrenProps<{}, LocationType>) => {
-                const { state } = location;
-                const prevPath = state && state.prevPath;
-                const nextPath = state && state.nextPath;
-                let animationClass = 'slide';
-
-                if (prevPath === '/resume') {
-                  animationClass = 'slideback';
-                }
-
-                if (nextPath === '/results') {
-                  animationClass = '';
-                }
-
-                return (
-                  <CSSTransition
-                    in={match !== null}
-                    timeout={1000}
-                    classNames={animationClass}
-                    unmountOnExit
-                  >
-                  <div className="w-full h-full fixed">
-                    <Resume setResumePoints={setResumePoints}/>
-                  </div>
-                </CSSTransition>
-                )
-            }}
+            }        
           </Route>
 
           <Route exact path="/results">
-            {!jobPoints.length && !resumePoints.length &&
+            {jobPoints.length && resumePoints.length ?
+              ({ match }: RouteChildrenProps) => (
+                <Transition 
+                  in={match !== null}
+                  timeout={duration}
+                  unmountOnExit
+                >
+                  {state => (
+                    <div className={`transition-opacity duration-500 w-full h-full ${transitionStyles[state]}`}>
+                      <Results 
+                        jobBulletPoints={jobPoints}
+                        resumeBulletPoints={resumePoints}
+                      />
+                    </div>
+                  )}
+                </Transition>
+              ) :
               <Redirect to="/"/>
             }
-            {({ match }: RouteChildrenProps) => (
-              <Transition 
-                in={match !== null}
-                timeout={duration}
-                unmountOnExit
-              >
-                {state => (
-                  <div className={`transition-opacity duration-500 w-full h-full ${transitionStyles[state]}`}>
-                    <Results 
-                      jobBulletPoints={jobPoints}
-                      resumeBulletPoints={resumePoints}
-                    />
-                  </div>
-                )}
-              </Transition>
-            )}
           </Route>
       </Router>
       <Background />
