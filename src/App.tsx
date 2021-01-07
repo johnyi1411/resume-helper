@@ -3,6 +3,7 @@ import './index.css';
 import {
   BrowserRouter as Router,
   Link,
+  Redirect,
   Route,
   RouteChildrenProps,
 } from 'react-router-dom';
@@ -69,6 +70,9 @@ const App = () => {
           </Route>
 
           <Route exact path="/resume">
+            {!jobPoints.length &&
+              <Redirect to="/"/>
+            }
             {({ location, match }: RouteChildrenProps<{}, LocationType>) => {
                 const { state } = location;
                 const prevPath = state && state.prevPath;
@@ -99,6 +103,9 @@ const App = () => {
           </Route>
 
           <Route exact path="/results">
+            {!jobPoints.length && !resumePoints.length &&
+              <Redirect to="/"/>
+            }
             {({ match }: RouteChildrenProps) => (
               <Transition 
                 in={match !== null}
