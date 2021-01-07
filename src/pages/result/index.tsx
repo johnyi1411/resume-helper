@@ -1,8 +1,9 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Transition } from 'react-transition-group';
 import { IconContext } from "react-icons";
-import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa';
+import { AiOutlineCheck } from 'react-icons/ai';
 import { BsDot } from 'react-icons/bs';
+import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa';
 
 import { Loading } from '../../components';
 
@@ -62,13 +63,13 @@ const Results: FunctionComponent<ResultsProps> = ({ jobBulletPoints, resumeBulle
       {!isLoaded && <Transition 
         in={isLoading}
         timeout={duration}
-        onExiting={() => setIsLoaded(true)}
+        onExited={() => setIsLoaded(true)}
       >
         {state => (
           <Loading className={`transition-opacity duration-500 ${transitionStyles[state]}`} />
         )}
       </Transition>}
-      {isLoaded && <>
+      {!isLoading && <>
         <div className=" border p-4 border-2 border-brightgreen rounded-xl bg-white shadow">
           <div className="flex justify-between items-center">
             <span className="text-xl font-medium">These job points are well covered</span>
@@ -121,11 +122,38 @@ const Results: FunctionComponent<ResultsProps> = ({ jobBulletPoints, resumeBulle
             }
           </div>
         </div>
-      </>
-      }
-      {
-        bestMatchingPairs.map(({ queryIndex, responseIndex, score }) => <p>{`query ${queryIndex} and response ${responseIndex} are a great match with a score of ${score}`}</p>)
-      }
+        <div className="my-4 border p-4 border-2 border-lightblue rounded-xl bg-white shadow">
+          <div className="flex justify-between items-center">
+            <span className="text-xl font-medium">Here’s the best matching points</span>
+            <IconContext.Provider value={{ className: "text-4xl text-lightblue" }}>
+              <AiOutlineCheck />
+            </IconContext.Provider>
+          </div>
+          <div>
+            {
+              bestMatchingPairs.map(({ queryIndex, responseIndex }) => (
+                <>
+                <div className="grid grid-cols-2">              
+                  <div className="flex items-center my-3">
+                    <IconContext.Provider value={{ className: "min-w-min min-h-min mr-4 text-md text-black" }}>
+                      <BsDot />
+                    </IconContext.Provider>
+                    <span className="text-sm">{jobBulletPoints[queryIndex]}</span>
+                  </div>
+                  <div className="flex items-center my-3">
+                    <IconContext.Provider value={{ className: "min-w-min min-h-min mr-4 text-md text-black" }}>
+                      <BsDot />
+                    </IconContext.Provider>
+                    <span className="text-sm">{resumeBulletPoints[responseIndex]}</span>
+                  </div>
+                </div>
+                <div className="w-4/5 border-b last:border-b-0 mx-auto"></div>
+                </>
+              ))
+            }
+          </div>
+        </div>
+      </>}
     </div>
   );
 };
