@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { IconContext } from "react-icons";
 import { BsDot } from 'react-icons/bs';
 import { FcNext } from 'react-icons/fc';
 
+import { NextButton } from '../../components';
 import { useTextAreaWithoutAsciiCharacters } from '../../hooks';
 
 type JobProps = {
@@ -12,8 +13,15 @@ type JobProps = {
 
 const Job: React.FunctionComponent<JobProps> = ({ setJobPoints }) => {
   const { value: job, bind: bindJob } = useTextAreaWithoutAsciiCharacters('');
+  const [jobInputError, setJobInputError] = useState(false);
 
   const jobBulletPoints = job ? job.split('\n').filter((bulletPoint: string) => bulletPoint) : [];
+
+  useEffect(() => {
+    if (jobInputError && job) {
+      setJobInputError(false);
+    }
+  }, [job, jobInputError]);
   
   return (
     <div>
@@ -39,16 +47,23 @@ const Job: React.FunctionComponent<JobProps> = ({ setJobPoints }) => {
               );
             })}
           </div>
+
+          {jobInputError && 
+            <div className="flex items-center justify-center w-10/12 mt-4">
+              <p className="text-darkred">Please enter a job description</p>
+            </div>
+          }
         </div>
       </div>
 
-      <Link to="/resume" onClick={() => setJobPoints(jobBulletPoints)}>
-        <div className="fixed bottom-1/16 right-1/16 bg-white rounded-full justify-center text-center text-3xl text-darkgreen shadow hover:bg-gray-100">
-          <IconContext.Provider value={{ className: "m-2" }}>
-            <FcNext />
-          </IconContext.Provider>
+      {jobBulletPoints.length ? 
+        <Link to="/resume" onClick={() => setJobPoints(jobBulletPoints)}>
+          <NextButton />
+        </Link> :
+        <div onClick={() => setJobInputError(true)}>
+          <NextButton />
         </div>
-      </Link>
+      }
     </div>
   )
 };

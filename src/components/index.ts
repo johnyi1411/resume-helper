@@ -3,3 +3,4 @@ export * from './about';
 export * from './button';
 export * from './animated-demo';
 export * from './loading';
+export * from './next-button';
