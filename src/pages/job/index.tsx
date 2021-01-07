@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { IconContext } from "react-icons";
 import { BsDot } from 'react-icons/bs';
-import { FcNext } from 'react-icons/fc';
 
 import { NextButton } from '../../components';
 import { useTextAreaWithoutAsciiCharacters } from '../../hooks';
