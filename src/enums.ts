@@ -1,5 +1,7 @@
 export const duration = 1750;
 
+export const pageTransitionDuration = 1000;
+
 export enum transitionStyles {
   entering = 'opacity-100',
   entered =  'opacity-100',
