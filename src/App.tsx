@@ -13,12 +13,31 @@ import { Background, Landing, Job, Results, Resume } from './pages';
 import { About, Header } from './components';
 import { pageTransitionDuration } from './enums';
 
+type LocationType = {
+  prevPath?: string,
+  nextPath?: string,
+}
+
 const App = () => {
   const initialPoints: string[] = []; 
   const [jobPoints, setJobPoints] = useState(initialPoints);
   const [resumePoints, setResumePoints] = useState(initialPoints);
 
-  let location = useLocation();
+  let location = useLocation<LocationType>();
+  let state = location.state || {};
+  let { prevPath, nextPath } = state;
+
+  const getAnimationStyle = () => {
+    if (nextPath === '/results') {
+      return 'fade';
+    }
+
+    if (prevPath === '/resume') {
+      return 'slideback';
+    }
+
+    return 'slide';
+  }
   
   return (
     <>
@@ -31,13 +50,23 @@ const App = () => {
         </div>
       </div>
 
-      <TransitionGroup>
+      <TransitionGroup
+        childFactory={child => React.cloneElement(child, { classNames: `${getAnimationStyle()}` })}
+      >
         <CSSTransition
           key={location.key}
-          classNames={location.pathname === '/results' ? 'fade' : 'slide'}
+          classNames={`${getAnimationStyle()}`}
           timeout={pageTransitionDuration}
         >
           <Switch location={location}>
+            <Route exact path="/results">
+              <div className="w-full h-full">
+                <Results 
+                  jobBulletPoints={jobPoints}
+                  resumeBulletPoints={resumePoints}
+                />
+              </div>
+            </Route>
             <Route exact path="/job">
               <div className="w-full h-full fixed">
                 <Job setJobPoints={setJobPoints}/>
@@ -45,15 +74,7 @@ const App = () => {
             </Route>
             <Route exact path="/resume">
               <div className="w-full h-full fixed">
-                <Resume setResumePoints={setResumePoints}/>
-              </div>
-            </Route>
-            <Route exact path="/results">
-              <div className="w-full h-full">
-                <Results 
-                  jobBulletPoints={jobPoints}
-                  resumeBulletPoints={resumePoints}
-                />
+                <Resume jobPoints={jobPoints} setResumePoints={setResumePoints}/>
               </div>
             </Route>
             <Route exact path="/">

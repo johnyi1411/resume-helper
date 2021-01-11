@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { IconContext } from "react-icons";
 import { BsDot } from 'react-icons/bs';
 import { FcPrevious } from 'react-icons/fc';
@@ -8,50 +8,54 @@ import { Button } from '../../components';
 import { useTextAreaWithoutAsciiCharacters } from '../../hooks';
 
 type ResumeProps = {
+  jobPoints: string[];
   setResumePoints: (resumePoints: string[]) => void;
 }
 
-const Resume: React.FunctionComponent<ResumeProps> = ({ setResumePoints }) => {
+const Resume: React.FunctionComponent<ResumeProps> = ({ jobPoints, setResumePoints }) => {
   const { value: resume, bind: bindResume } = useTextAreaWithoutAsciiCharacters('');
 
   const resumeBulletPoints = resume ? resume.split('\n').filter((bulletPoint: string) => bulletPoint) : [];
   
   return (
     <div>
-      <div className="flex flex-col items-center w-3/4 mx-auto text-sm">
-        <div className="grid grid-cols-2 w-full ml-4 mt-20 max-h-screen60">
-          <div className="w-10/12 py-4 pl-4 justify-self-center bg-white rounded-xl shadow border-4 border-lightblue">
-            <textarea
-              className="w-full h-full max-h-screen60 focus:outline-none resize-none"
-              placeholder="Copy your resume here..."
-              {...bindResume}
-            />
+      {jobPoints.length ?
+        <div className="flex flex-col items-center w-3/4 mx-auto text-sm">
+          <div className="grid grid-cols-2 w-full ml-4 mt-20 max-h-screen60">
+            <div className="w-10/12 py-4 pl-4 justify-self-center bg-white rounded-xl shadow border-4 border-lightblue">
+              <textarea
+                className="w-full h-full max-h-screen60 focus:outline-none resize-none"
+                placeholder="Copy your resume here..."
+                {...bindResume}
+              />
+            </div>
+
+            <div className="w-full max-h-screen60 bg-white pt-4 pl-4 rounded-xl shadow border-4 border-lightblue overflow-scroll">
+              {resumeBulletPoints.map((bulletPoint, bulletPointIndex) => {
+                return (
+                  <div key={bulletPointIndex} className="flex items-center w-full">
+                    <IconContext.Provider value={{ className: "min-w-min min-h-min text-md text-black" }}>
+                      <BsDot />
+                    </IconContext.Provider>
+                    <span className="ml-2 my-1">{bulletPoint}</span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          <div className="w-full max-h-screen60 bg-white pt-4 pl-4 rounded-xl shadow border-4 border-lightblue overflow-scroll">
-            {resumeBulletPoints.map((bulletPoint, bulletPointIndex) => {
-              return (
-                <div key={bulletPointIndex} className="flex items-center w-full">
-                  <IconContext.Provider value={{ className: "min-w-min min-h-min text-md text-black" }}>
-                    <BsDot />
-                  </IconContext.Provider>
-                  <span className="ml-2 my-1">{bulletPoint}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {resume && 
-          <Link
-            to={{pathname: '/results', state: { nextPath: '/results' }}}
-            className="justify-self-center mt-4"
-            onClick={() => setResumePoints(resumeBulletPoints)}
-          >
-            <Button buttonText="Analyze" />
-          </Link>
-        }
-      </div>
+          {resume && 
+            <Link
+              to={{pathname: '/results', state: { nextPath: '/results' }}}
+              className="justify-self-center mt-4"
+              onClick={() => setResumePoints(resumeBulletPoints)}
+            >
+              <Button buttonText="Analyze" />
+            </Link>
+          }
+        </div> :
+        <Redirect to="/" />
+      }
 
 
       <Link to={{pathname: '/job', state: { prevPath: '/resume' }}}>

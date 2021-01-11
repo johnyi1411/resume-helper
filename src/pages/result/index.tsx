@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
+import { Redirect } from "react-router-dom";
 import { Transition } from 'react-transition-group';
 import { IconContext } from "react-icons";
 import { AiOutlineCheck } from 'react-icons/ai';
@@ -60,6 +61,7 @@ const Results: FunctionComponent<ResultsProps> = ({ jobBulletPoints, resumeBulle
 
   return (
     <div className="w-3/5 mx-auto mt-12">
+      {!jobBulletPoints.length && !resumeBulletPoints.length && <Redirect to="/" />}
       {!isLoaded && <Transition 
         in={isLoading}
         timeout={duration}
