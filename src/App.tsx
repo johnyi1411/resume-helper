@@ -69,12 +69,16 @@ const App = () => {
             </Route>
             <Route exact path="/job">
               <div className="w-full h-full fixed">
-                <Job setJobPoints={setJobPoints}/>
+                <Job jobPoints={jobPoints} setJobPoints={setJobPoints}/>
               </div>
             </Route>
             <Route exact path="/resume">
               <div className="w-full h-full fixed">
-                <Resume jobPoints={jobPoints} setResumePoints={setResumePoints}/>
+                <Resume
+                  jobPoints={jobPoints}
+                  resumePoints={resumePoints}
+                  setResumePoints={setResumePoints}
+                />
               </div>
             </Route>
             <Route exact path="/">

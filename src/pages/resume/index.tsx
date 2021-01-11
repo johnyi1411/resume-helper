@@ -9,11 +9,12 @@ import { useTextAreaWithoutAsciiCharacters } from '../../hooks';
 
 type ResumeProps = {
   jobPoints: string[];
+  resumePoints: string[];
   setResumePoints: (resumePoints: string[]) => void;
 }
 
-const Resume: React.FunctionComponent<ResumeProps> = ({ jobPoints, setResumePoints }) => {
-  const { value: resume, bind: bindResume } = useTextAreaWithoutAsciiCharacters('');
+const Resume: React.FunctionComponent<ResumeProps> = ({ jobPoints, resumePoints, setResumePoints }) => {
+  const { value: resume, bind: bindResume } = useTextAreaWithoutAsciiCharacters(resumePoints.length ? resumePoints.join('\n') : '');
 
   const resumeBulletPoints = resume ? resume.split('\n').filter((bulletPoint: string) => bulletPoint) : [];
   

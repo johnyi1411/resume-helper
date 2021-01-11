@@ -7,11 +7,12 @@ import { NextButton } from '../../components';
 import { useTextAreaWithoutAsciiCharacters } from '../../hooks';
 
 type JobProps = {
+  jobPoints: string[];
   setJobPoints: (jobPoints: string[]) => void;
 }
 
-const Job: React.FunctionComponent<JobProps> = ({ setJobPoints }) => {
-  const { value: job, bind: bindJob } = useTextAreaWithoutAsciiCharacters('');
+const Job: React.FunctionComponent<JobProps> = ({ jobPoints, setJobPoints }) => {
+  const { value: job, bind: bindJob } = useTextAreaWithoutAsciiCharacters(jobPoints.length ? jobPoints.join('\n') : '');
   const [jobInputError, setJobInputError] = useState(false);
 
   const jobBulletPoints = job ? job.split('\n').filter((bulletPoint: string) => bulletPoint) : [];
